@@ -22,9 +22,19 @@ async function insertAlbumRepository({name, artist, rating, critic}:
           return albumQuery;   
 }
 
-async function getAlbumsRepository(){
-    
+async function getAlbumsRepositoryByRating(){
+    const allAlbumsQuery = (await connection.query(`
+      SELECT * FROM albums ORDER BY rating DESC;
+    `)).rows;
+    return allAlbumsQuery;
+}
+
+async function getAlbumsRepositoryDefault(){
+  const allAlbumsQuery = (await connection.query(`
+      SELECT * FROM albums;
+    `)).rows;
+    return allAlbumsQuery;
 }
 
 
-export { insertAlbumRepository }
+export { insertAlbumRepository, getAlbumsRepositoryByRating, getAlbumsRepositoryDefault }
