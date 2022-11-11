@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { getAlbumsRepositoryByRating, getAlbumsRepositoryDefault, insertAlbumRepository } from "../repositories/albums.repository.js";
-import { albumsSchema } from "../schemas/albumsSchema.js";
+import { deleteAlbumRepository, getAlbumsRepositoryByRating, getAlbumsRepositoryDefault, insertAlbumRepository, updateAlbumRepository } from "../repositories/albums.repository.js";
+import { albumsSchema, albumsUpdateSchema } from "../schemas/albumsSchema.js";
 
 async function insertListenedAlbums(req: Request, res: Response) {
     const { name, artist, rating, critic } = req.body;
@@ -43,4 +43,25 @@ async function getAllAlbums(req: Request, res: Response) {
     }
 }
 
-export { insertListenedAlbums, getAllAlbums }
+async function updateAlbum(req: Request, res: Response){
+    const { rating, critic } = req.body;
+    const { id } = req.query;
+    try {
+        await updateAlbumRepository({rating, critic, id });
+        return res.sendStatus(200);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
+async function deleteAlbum(req: Request, res: Response){
+    const { id } = req.query;
+    try {
+        await deleteAlbumRepository({id});
+        return res.sendStatus(200);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
+export { insertListenedAlbums, getAllAlbums, updateAlbum, deleteAlbum }

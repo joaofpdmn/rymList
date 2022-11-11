@@ -1,4 +1,4 @@
-import joi, { number } from "joi";
+import joi from "joi";
 
 const albumsSchema = joi.object({
     name: joi.string().min(1).required().trim(),
@@ -7,4 +7,9 @@ const albumsSchema = joi.object({
     critic: joi.string().min(0).required().trim(),
 });
 
-export { albumsSchema };
+const albumsUpdateSchema = joi.object({
+    rating: joi.number().greater(0).less(11).required(),
+    critic: joi.string().min(0).required().trim(),
+})
+
+export { albumsSchema, albumsUpdateSchema };

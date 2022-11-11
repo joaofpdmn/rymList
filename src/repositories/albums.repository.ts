@@ -36,5 +36,15 @@ async function getAlbumsRepositoryDefault(){
     return allAlbumsQuery;
 }
 
+async function updateAlbumRepository({rating, critic, id}){
+  const updateAlbumQuery = await connection.query(`UPDATE albums SET rating = $1 WHERE id = $2;`, 
+  [rating, id]);
+  return updateAlbumQuery;
+}
 
-export { insertAlbumRepository, getAlbumsRepositoryByRating, getAlbumsRepositoryDefault }
+async function deleteAlbumRepository({ id }){
+  const deleteAlbumQuery = await connection.query(`DELETE FROM albums WHERE id = $1;`, [id]);
+  return deleteAlbumQuery;
+}
+
+export { insertAlbumRepository, getAlbumsRepositoryByRating, getAlbumsRepositoryDefault, updateAlbumRepository, deleteAlbumRepository }
