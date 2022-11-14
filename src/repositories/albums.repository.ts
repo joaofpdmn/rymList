@@ -36,7 +36,7 @@ async function getAlbumsRepositoryDefault(){
     return allAlbumsQuery;
 }
 
-async function updateAlbumRepository({rating, critic, id}){
+async function updateAlbumRepository({rating, id}){
   const updateAlbumQuery = await connection.query(`UPDATE albums SET rating = $1 WHERE id = $2;`, 
   [rating, id]);
   return updateAlbumQuery;
