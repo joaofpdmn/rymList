@@ -59,4 +59,6 @@ Receives id from the req.query.
 Receives id from the req.query.
 
 
+## Stack utilizada
 
+**Back-end:** Node, Express, TypeScript
